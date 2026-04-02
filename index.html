@@ -1,0 +1,1285 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🎟️ Rifa Camisa Verde · Selección Mexicana</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Permanent+Marker&family=Righteous&family=Special+Elite&family=Oswald:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0e3d1f;--bg2:#0a2e17;--gold:#e8b84b;--gold2:#f5d070;
+  --cream:#f5ead8;--red:#c0392b;--white:#ffffff;--dark:#061a0c;
+  --accent:#4caf50;--text-main:#f5ead8;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+  background:var(--bg2);font-family:'Special Elite',serif;
+  min-height:100vh;display:flex;flex-direction:column;align-items:center;
+  padding:12px 8px 40px;position:relative;overflow-x:hidden;
+}
+body::before{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:9998;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.07'/%3E%3C/svg%3E");
+  opacity:.55;
+}
+body::after{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:radial-gradient(circle, rgba(0,0,0,0.5) 1.5px, transparent 1.5px);
+  background-size:22px 22px;opacity:.45;
+}
+
+/* ══ POSTER ══ */
+.poster{width:100%;max-width:660px;background:var(--bg);border:4px solid var(--gold);position:relative;z-index:10;overflow:hidden;}
+.stamp-strip{background:var(--dark);padding:5px 20px;display:flex;justify-content:space-between;align-items:center;border-bottom:3px solid var(--gold);}
+.stamp-txt{font-family:'Oswald',sans-serif;font-size:10px;letter-spacing:4px;color:var(--gold);text-transform:uppercase;font-weight:700;opacity:.8;}
+.hero{background:var(--bg);padding:20px 20px 0;text-align:center;position:relative;border-bottom:4px solid var(--gold);}
+.hero-rifa{font-family:'Permanent Marker',cursive;font-size:clamp(72px,18vw,110px);color:var(--white);line-height:.85;text-shadow:4px 4px 0 var(--dark),-2px -2px 0 rgba(0,0,0,.4),0 0 40px rgba(232,184,75,.15);letter-spacing:-2px;position:relative;z-index:2;}
+.hero-rifa span{-webkit-text-stroke:3px var(--dark);color:var(--white);}
+.hero-camisa{font-family:'Bebas Neue',sans-serif;font-size:clamp(60px,18vw,120px);color:var(--gold);line-height:.85;letter-spacing:8px;text-shadow:5px 5px 0 var(--dark);margin-top:-8px;position:relative;z-index:2;}
+.hero-sub{font-family:'Oswald',sans-serif;font-size:12px;letter-spacing:6px;color:var(--cream);opacity:.7;padding:6px 0 14px;text-transform:uppercase;}
+.jersey-zone{position:relative;min-height:280px;background:radial-gradient(ellipse at center, rgba(0,0,0,0.45) 0%, transparent 70%);display:flex;align-items:center;justify-content:center;padding:20px;overflow:hidden;}
+.jersey-dots-bg{position:absolute;inset:0;background-image:radial-gradient(circle, rgba(0,0,0,0.6) 1.5px, transparent 1.5px);background-size:18px 18px;}
+.jersey-img-wrap{position:relative;z-index:5;user-select:none;display:inline-block;}
+.jersey-img-wrap:active{cursor:grabbing;}
+.jersey-img-wrap img{max-width:260px;max-height:300px;width:auto;height:auto;filter:drop-shadow(0 12px 30px rgba(0,0,0,.7));display:block;pointer-events:none;}
+.jersey-placeholder{width:220px;height:240px;border:3px dashed rgba(232,184,75,.4);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;cursor:pointer;transition:all .2s;position:relative;z-index:5;}
+.jersey-placeholder:hover{border-color:var(--gold);background:rgba(232,184,75,.05);}
+.jersey-placeholder-icon{font-size:48px;}
+.jersey-placeholder-txt{font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:2px;color:rgba(232,184,75,.6);text-align:center;text-transform:uppercase;line-height:1.4;}
+#jersey-input{display:none;}
+.jersey-controls{position:absolute;bottom:10px;right:10px;z-index:10;display:flex;gap:6px;}
+.jc-btn{background:rgba(0,0,0,.6);border:1.5px solid rgba(232,184,75,.4);color:var(--gold);font-size:14px;width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;border-radius:2px;}
+.jc-btn:hover{background:rgba(232,184,75,.2);}
+.jersey-size-badge{position:absolute;top:16px;left:16px;z-index:10;background:var(--gold);color:var(--dark);font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:2px;padding:4px 12px;transform:rotate(-3deg);box-shadow:3px 3px 0 rgba(0,0,0,.4);}
+.jersey-label{position:absolute;top:12px;right:16px;z-index:10;font-family:'Oswald',sans-serif;font-size:9px;letter-spacing:2px;color:var(--gold);opacity:.7;text-align:right;text-transform:uppercase;line-height:1.4;}
+.price-bar{background:var(--dark);padding:16px 20px;display:flex;justify-content:space-between;align-items:center;border-top:3px solid var(--gold);border-bottom:3px solid var(--gold);}
+.price-boleto{font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:4px;color:var(--cream);opacity:.6;text-transform:uppercase;}
+.price-amount{font-family:'Bebas Neue',sans-serif;font-size:52px;color:var(--gold);line-height:1;letter-spacing:2px;text-shadow:3px 3px 0 rgba(0,0,0,.5);}
+.price-note{font-family:'Oswald',sans-serif;font-size:9px;letter-spacing:2px;color:var(--cream);opacity:.5;text-transform:uppercase;text-align:right;line-height:1.5;}
+.price-limit{background:var(--red);color:var(--white);font-family:'Oswald',sans-serif;font-size:9px;letter-spacing:2px;padding:3px 8px;margin-top:4px;display:inline-block;text-transform:uppercase;}
+.info-strip{background:var(--bg);padding:14px 20px;display:grid;grid-template-columns:1fr 1px 1fr;border-bottom:3px solid var(--gold);}
+.info-divider{background:rgba(232,184,75,.3);}
+.info-cell{padding:0 16px;}
+.info-cell:first-child{padding-left:0;}
+.info-cell:last-child{padding-right:0;}
+.info-lbl{font-family:'Oswald',sans-serif;font-size:9px;letter-spacing:3px;color:var(--gold);opacity:.7;text-transform:uppercase;margin-bottom:4px;}
+.info-val{font-family:'Special Elite',serif;font-size:12px;color:var(--cream);line-height:1.5;}
+.payment-sec{background:var(--dark);padding:18px 20px;border-bottom:3px solid var(--gold);}
+.sec-title{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:4px;color:var(--gold);margin-bottom:10px;}
+.payment-content{font-family:'Oswald',sans-serif;font-size:12px;letter-spacing:1px;color:var(--cream);line-height:1.8;opacity:.85;}
+.payment-content strong{color:var(--gold);}
+.payment-contact-box{margin-top:12px;border:2px solid rgba(232,184,75,.35);padding:12px 14px;background:rgba(232,184,75,.05);}
+.payment-contact-box p{font-family:'Special Elite',serif;font-size:12px;color:var(--cream);line-height:1.7;}
+.payment-contact-box strong{color:var(--gold);}
+.nums-sec{padding:20px;background:var(--bg);border-bottom:3px solid var(--gold);}
+.nums-header{text-align:center;margin-bottom:16px;}
+.nums-title{font-family:'Bebas Neue',sans-serif;font-size:32px;color:var(--cream);letter-spacing:5px;}
+.nums-subtitle{font-family:'Oswald',sans-serif;font-size:10px;letter-spacing:3px;color:var(--gold);opacity:.7;margin-top:3px;text-transform:uppercase;}
+.nums-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:7px;}
+.nb{aspect-ratio:1;border:2.5px solid rgba(232,184,75,.4);background:rgba(0,0,0,.3);font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--cream);cursor:pointer;transition:all .18s;display:flex;align-items:center;justify-content:center;box-shadow:3px 3px 0 rgba(0,0,0,.4);position:relative;}
+.nb:hover:not(.taken){background:var(--gold);color:var(--dark);transform:translate(-2px,-2px);box-shadow:5px 5px 0 rgba(232,184,75,.3);border-color:var(--gold);}
+.nb.taken{background:rgba(192,57,43,.3);color:rgba(245,234,216,.2);cursor:not-allowed;border-color:rgba(192,57,43,.4);box-shadow:2px 2px 0 rgba(0,0,0,.3);}
+.nb.taken::after{content:'✕';position:absolute;font-size:9px;color:rgba(192,57,43,.5);}
+.nums-legend{display:flex;gap:16px;justify-content:center;margin-top:12px;flex-wrap:wrap;}
+.leg{display:flex;align-items:center;gap:6px;font-family:'Oswald',sans-serif;font-size:9px;letter-spacing:2px;color:var(--cream);opacity:.6;}
+.leg-dot{width:12px;height:12px;border:2px solid rgba(232,184,75,.4);}
+.steps-sec{padding:16px 20px;background:var(--bg2);border-bottom:3px solid var(--gold);}
+.step-row{display:flex;gap:12px;align-items:flex-start;margin-bottom:10px;}
+.step-num{background:var(--gold);color:var(--dark);font-family:'Bebas Neue',sans-serif;font-size:18px;width:28px;height:28px;min-width:28px;display:flex;align-items:center;justify-content:center;box-shadow:2px 2px 0 rgba(0,0,0,.4);}
+.step-txt{font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:1px;color:var(--cream);line-height:1.6;opacity:.85;}
+.step-txt strong{color:var(--gold);}
+.social-sec{padding:14px 20px;background:var(--dark);border-bottom:3px solid var(--gold);}
+.social-lbl{font-family:'Oswald',sans-serif;font-size:9px;letter-spacing:4px;color:var(--gold);opacity:.7;text-transform:uppercase;margin-bottom:8px;}
+.social-link{display:flex;align-items:center;gap:8px;font-family:'Special Elite',serif;font-size:13px;color:var(--cream);margin-top:4px;}
+.poster-footer{background:var(--dark);padding:10px 20px;display:flex;justify-content:space-between;align-items:center;cursor:default;user-select:none;}
+.ftr-txt{font-family:'Oswald',sans-serif;font-size:9px;letter-spacing:3px;color:var(--cream);opacity:.3;text-transform:uppercase;}
+
+/* ══ MODALS PUBLICOS ══ */
+.overlay{position:fixed;inset:0;background:rgba(42,12,6,.92);display:flex;align-items:center;justify-content:center;z-index:10000;opacity:0;pointer-events:none;transition:opacity .25s;padding:16px;}
+.overlay.on{opacity:1;pointer-events:all;}
+.modal{background:var(--bg);border:3px solid var(--gold);width:100%;max-width:420px;box-shadow:8px 8px 0 rgba(0,0,0,.6);transform:translateY(28px);transition:transform .25s;}
+.overlay.on .modal{transform:translateY(0);}
+.mhdr{background:var(--dark);padding:14px 20px;border-bottom:3px solid var(--gold);}
+.mhdr h2{font-family:'Bebas Neue',sans-serif;font-size:30px;color:var(--cream);letter-spacing:4px;line-height:1;}
+.mhdr p{font-family:'Oswald',sans-serif;font-size:10px;color:var(--gold);letter-spacing:2px;margin-top:3px;}
+.num-badge{background:var(--gold);color:var(--dark);font-family:'Bebas Neue',sans-serif;font-size:24px;padding:2px 10px;display:inline-block;letter-spacing:2px;margin-top:6px;}
+.mbody{padding:18px;}
+.flbl{font-family:'Oswald',sans-serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);opacity:.8;display:block;margin-bottom:4px;}
+.finp{width:100%;padding:10px 12px;border:2px solid rgba(232,184,75,.3);background:rgba(0,0,0,.3);color:var(--cream);font-family:'Special Elite',serif;font-size:15px;outline:none;transition:border-color .2s;margin-bottom:12px;}
+.finp:focus{border-color:var(--gold);}
+.qty-row{display:flex;gap:10px;margin-bottom:12px;}
+.qty-btn{width:40px;height:40px;background:var(--dark);border:2px solid rgba(232,184,75,.4);color:var(--gold);font-family:'Bebas Neue',sans-serif;font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+.qty-btn:hover{background:rgba(232,184,75,.15);border-color:var(--gold);}
+.qty-display{flex:1;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.3);border:2px solid rgba(232,184,75,.3);font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--gold);}
+.err{font-family:'Oswald',sans-serif;font-size:10px;color:#e74c3c;letter-spacing:1px;margin-bottom:8px;display:none;}
+.btn-main{width:100%;padding:13px;background:var(--gold);color:var(--dark);border:none;font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:4px;cursor:pointer;box-shadow:4px 4px 0 rgba(0,0,0,.4);transition:all .18s;text-transform:uppercase;}
+.btn-main:hover{background:var(--gold2);}
+.btn-main.loading{opacity:.6;pointer-events:none;}
+.btn-main.loading::after{content:' ⏳';}
+.btn-cancel{width:100%;padding:8px;background:transparent;color:var(--cream);border:none;font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:2px;cursor:pointer;margin-top:8px;opacity:.35;}
+.btn-cancel:hover{opacity:.7;}
+#ticket-overlay .modal{max-width:460px;background:var(--dark);border-color:var(--gold);}
+.ticket-wrap{padding:18px;}
+.ticket{background:#2a0c06;border:3px solid var(--gold);position:relative;overflow:hidden;}
+.ticket::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 8px,rgba(232,184,75,.02) 8px,rgba(232,184,75,.02) 9px);}
+.ticket-top{background:var(--dark);padding:12px 18px;border-bottom:2px solid rgba(232,184,75,.3);}
+.ticket-top-row{display:flex;justify-content:space-between;align-items:flex-start;}
+.ticket-org{font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:3px;color:var(--cream);}
+.ticket-num-big{font-family:'Bebas Neue',sans-serif;font-size:68px;color:var(--gold);letter-spacing:4px;line-height:1;text-align:center;text-shadow:3px 3px 0 rgba(0,0,0,.6);}
+.ticket-label-num{font-family:'Oswald',sans-serif;font-size:9px;letter-spacing:4px;color:var(--cream);opacity:.5;text-align:center;}
+.ticket-body{padding:10px 18px 14px;}
+.ticket-divider{border:none;border-top:2px dashed rgba(232,184,75,.3);margin:10px 0;}
+.ticket-row{display:flex;justify-content:space-between;gap:12px;margin-top:8px;}
+.ticket-field{flex:1;}
+.ticket-field-lbl{font-family:'Oswald',sans-serif;font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);opacity:.6;margin-bottom:2px;}
+.ticket-field-val{font-family:'Special Elite',serif;font-size:14px;color:var(--cream);border-bottom:1.5px solid rgba(232,184,75,.3);padding-bottom:2px;}
+.barcode{display:flex;gap:1px;align-items:flex-end;height:22px;}
+.barcode span{width:2px;background:var(--gold);opacity:.5;}
+.ss-prompt{background:rgba(232,184,75,.1);border:1px solid rgba(232,184,75,.3);padding:12px 14px;margin-top:14px;display:flex;gap:10px;align-items:flex-start;}
+.ss-icon{font-size:28px;flex-shrink:0;}
+.ss-txt{font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:1px;color:var(--cream);line-height:1.6;}
+.ss-txt strong{color:var(--gold);display:block;font-size:13px;letter-spacing:2px;margin-bottom:3px;}
+.btn-close-ticket{width:100%;margin-top:14px;padding:12px;background:var(--gold);color:var(--dark);border:none;font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:3px;cursor:pointer;}
+[contenteditable]{outline:none;border-bottom:2px dashed rgba(232,184,75,.5);cursor:text;padding:0 2px;min-width:8px;display:inline-block;}
+[contenteditable]:hover{background:rgba(232,184,75,.1);}
+[contenteditable]:focus{background:rgba(232,184,75,.2);}
+#confetti-canvas{position:fixed;inset:0;pointer-events:none;z-index:20000;}
+
+/* ══ PANEL ADMIN (OCULTO — fixed overlay) ══ */
+#admin-login-overlay{
+  position:fixed;inset:0;background:rgba(0,0,0,.97);z-index:99998;
+  display:none;align-items:center;justify-content:center;padding:20px;
+}
+#admin-login-overlay.show{display:flex;}
+.admin-login-box{
+  background:#111;border:2px solid var(--gold);padding:32px 28px;
+  width:100%;max-width:340px;text-align:center;
+}
+.admin-login-title{
+  font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:6px;
+  color:var(--gold);margin-bottom:6px;
+}
+.admin-login-sub{
+  font-family:'Oswald',sans-serif;font-size:9px;letter-spacing:3px;
+  color:rgba(232,184,75,.4);text-transform:uppercase;margin-bottom:24px;
+}
+.admin-login-inp{
+  width:100%;padding:11px 14px;background:rgba(255,255,255,.06);
+  border:1.5px solid rgba(232,184,75,.3);color:var(--cream);
+  font-family:'Special Elite',serif;font-size:16px;outline:none;
+  text-align:center;letter-spacing:4px;margin-bottom:12px;
+}
+.admin-login-inp:focus{border-color:var(--gold);}
+.admin-login-btn{
+  width:100%;padding:11px;background:var(--gold);color:var(--dark);border:none;
+  font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:4px;
+  cursor:pointer;margin-bottom:8px;
+}
+.admin-login-btn:hover{background:var(--gold2);}
+.admin-login-cancel{
+  background:transparent;border:none;color:rgba(245,234,216,.3);
+  font-family:'Oswald',sans-serif;font-size:10px;letter-spacing:2px;
+  cursor:pointer;padding:4px 8px;
+}
+.admin-login-cancel:hover{color:rgba(245,234,216,.6);}
+.admin-login-err{
+  font-family:'Oswald',sans-serif;font-size:10px;color:#e74c3c;
+  letter-spacing:2px;margin-bottom:10px;display:none;
+}
+
+#admin-panel{
+  position:fixed;inset:0;background:#0d0d0d;z-index:99999;
+  display:none;flex-direction:column;overflow:hidden;
+}
+#admin-panel.show{display:flex;}
+.adm-topbar{
+  background:#111;border-bottom:2px solid var(--gold);
+  padding:10px 20px;display:flex;align-items:center;justify-content:space-between;
+  flex-shrink:0;
+}
+.adm-topbar-title{
+  font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:5px;color:var(--gold);
+}
+.adm-topbar-sub{
+  font-family:'Oswald',sans-serif;font-size:9px;letter-spacing:3px;
+  color:rgba(232,184,75,.4);text-transform:uppercase;margin-top:1px;
+}
+.adm-close-btn{
+  background:transparent;border:1.5px solid rgba(232,184,75,.3);
+  color:var(--gold);font-family:'Oswald',sans-serif;font-size:11px;
+  letter-spacing:2px;padding:6px 14px;cursor:pointer;text-transform:uppercase;
+}
+.adm-close-btn:hover{background:rgba(232,184,75,.1);}
+.adm-body{flex:1;overflow-y:auto;padding:20px;}
+
+/* Tabs */
+.adm-tabs{display:flex;gap:0;border-bottom:2px solid rgba(232,184,75,.2);margin-bottom:20px;}
+.adm-tab{
+  padding:9px 20px;background:transparent;border:none;
+  font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:3px;
+  color:rgba(245,234,216,.4);cursor:pointer;text-transform:uppercase;
+  border-bottom:2px solid transparent;margin-bottom:-2px;transition:all .15s;
+}
+.adm-tab:hover{color:rgba(245,234,216,.7);}
+.adm-tab.active{color:var(--gold);border-bottom-color:var(--gold);}
+.adm-tab-content{display:none;}
+.adm-tab-content.active{display:block;}
+
+/* Sección config */
+.adm-section-title{
+  font-family:'Oswald',sans-serif;font-size:10px;letter-spacing:3px;
+  color:var(--gold);text-transform:uppercase;margin:0 0 12px;
+  padding-bottom:6px;border-bottom:1px solid rgba(232,184,75,.15);
+}
+.adm-row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px;}
+.adm-field{flex:1;min-width:200px;}
+.adm-lbl{font-family:'Oswald',sans-serif;font-size:9px;letter-spacing:2px;color:rgba(232,184,75,.6);display:block;margin-bottom:4px;text-transform:uppercase;}
+.adm-inp{
+  width:100%;padding:8px 10px;background:rgba(255,255,255,.06);
+  border:1.5px solid rgba(232,184,75,.25);color:var(--cream);
+  font-family:'Special Elite',serif;font-size:13px;outline:none;
+}
+.adm-inp:focus{border-color:var(--gold);}
+.adm-inp::placeholder{color:rgba(245,234,216,.2);}
+.adm-save-btn{
+  padding:9px 24px;background:var(--gold);color:var(--dark);border:none;
+  font-family:'Oswald',sans-serif;font-size:12px;letter-spacing:2px;
+  font-weight:700;cursor:pointer;text-transform:uppercase;margin-top:4px;
+}
+.adm-save-btn:hover{background:var(--gold2);}
+.adm-ok{
+  font-family:'Oswald',sans-serif;font-size:10px;color:var(--gold);
+  letter-spacing:2px;background:rgba(232,184,75,.1);padding:6px 10px;
+  border:1px solid rgba(232,184,75,.3);display:none;margin-top:8px;
+}
+
+/* Firebase hint */
+.firebase-hint{
+  background:rgba(255,152,0,.07);border:1px solid rgba(255,152,0,.2);
+  padding:12px 14px;margin-bottom:12px;
+}
+.firebase-hint-title{
+  font-family:'Oswald',sans-serif;font-size:10px;letter-spacing:2px;
+  color:#f39c12;text-transform:uppercase;margin-bottom:8px;
+}
+.firebase-hint p{
+  font-family:'Oswald',sans-serif;font-size:10px;letter-spacing:1px;
+  color:rgba(245,234,216,.55);line-height:1.7;
+}
+.firebase-hint code{color:#f39c12;font-family:monospace;font-size:11px;}
+.firebase-hint a{color:#f39c12;}
+
+/* Contraseña */
+.pass-hint{
+  font-family:'Oswald',sans-serif;font-size:9px;letter-spacing:1px;
+  color:rgba(245,234,216,.3);margin-top:6px;line-height:1.5;
+}
+
+/* Tabla participantes */
+.adm-stats{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+  gap:10px;margin-bottom:20px;
+}
+.adm-stat{
+  background:#1a1a1a;border:1px solid rgba(232,184,75,.2);
+  padding:12px 16px;text-align:center;
+}
+.adm-stat-num{font-family:'Bebas Neue',sans-serif;font-size:36px;color:var(--gold);line-height:1;}
+.adm-stat-lbl{font-family:'Oswald',sans-serif;font-size:9px;letter-spacing:2px;color:rgba(245,234,216,.4);text-transform:uppercase;margin-top:2px;}
+.adm-actions{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;}
+.adm-action-btn{
+  padding:8px 16px;background:transparent;border:1.5px solid rgba(232,184,75,.4);
+  color:var(--gold);font-family:'Oswald',sans-serif;font-size:10px;letter-spacing:2px;
+  cursor:pointer;text-transform:uppercase;transition:all .15s;
+}
+.adm-action-btn:hover{background:rgba(232,184,75,.1);}
+.adm-table-wrap{overflow-x:auto;}
+.adm-table{width:100%;border-collapse:collapse;font-family:'Oswald',sans-serif;}
+.adm-table th{
+  font-size:9px;letter-spacing:2px;color:var(--dark);background:var(--gold);
+  padding:8px 10px;text-align:left;text-transform:uppercase;
+}
+.adm-table td{
+  font-size:11px;letter-spacing:.5px;color:var(--cream);
+  padding:9px 10px;border-bottom:1px solid rgba(232,184,75,.08);
+}
+.adm-table tr:hover td{background:rgba(232,184,75,.04);}
+.num-chip{
+  background:var(--gold);color:var(--dark);font-family:'Bebas Neue',sans-serif;
+  font-size:15px;padding:1px 8px;display:inline-block;margin-right:3px;
+}
+.adm-empty{
+  text-align:center;padding:32px;
+  font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:2px;
+  color:rgba(245,234,216,.2);text-transform:uppercase;
+}
+
+/* Número manual */
+.manual-section{background:#1a1a1a;border:1px solid rgba(232,184,75,.15);padding:16px;margin-bottom:20px;}
+.manual-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-top:10px;}
+.mnb{
+  aspect-ratio:1;border:2px solid rgba(232,184,75,.3);background:rgba(0,0,0,.4);
+  font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--cream);
+  cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;
+}
+.mnb:hover:not(.mtaken){background:rgba(232,184,75,.2);border-color:var(--gold);}
+.mnb.mtaken{background:rgba(192,57,43,.3);color:rgba(245,234,216,.3);border-color:rgba(192,57,43,.3);cursor:default;}
+.mnb.msel{background:var(--gold);color:var(--dark);border-color:var(--gold);}
+
+@media(max-width:500px){
+  .hero-rifa{font-size:16vw;}
+  .hero-camisa{font-size:16vw;}
+  .price-amount{font-size:42px;}
+  .nums-grid{grid-template-columns:repeat(5,1fr);}
+  .info-strip{grid-template-columns:1fr;}
+  .info-divider{display:none;}
+  .info-cell{border-bottom:1px solid rgba(232,184,75,.2);padding:10px 0;}
+  .adm-tab{padding:9px 12px;font-size:10px;letter-spacing:1px;}
+}
+</style>
+</head>
+<body>
+<canvas id="confetti-canvas"></canvas>
+
+<!-- ══ POSTER ══ -->
+<div class="poster">
+  <div class="stamp-strip">
+    <span class="stamp-txt">✦ Rifa Oficial</span>
+    <span class="stamp-txt">Selección Mexicana · 2026</span>
+    <span class="stamp-txt">Boleto $100 ✦</span>
+  </div>
+  <div class="hero">
+    <div class="hero-rifa"><span>Rifa</span></div>
+    <div class="hero-camisa">Camisa</div>
+    <div class="hero-sub">Playera de la Selección Mexicana · <span contenteditable>Clon Espejo</span></div>
+  </div>
+  <div class="jersey-zone" id="jersey-zone">
+    <div class="jersey-dots-bg"></div>
+    <div class="jersey-size-badge" contenteditable>TALLA XL</div>
+    <div class="jersey-label">PLAYERA DE LA<br>SELECCIÓN<br>MEXICANA</div>
+    <div class="jersey-placeholder" id="jersey-placeholder" onclick="document.getElementById('jersey-input').click()" style="display:none;">
+      <div class="jersey-placeholder-icon">👕</div>
+      <div class="jersey-placeholder-txt">Toca aquí para<br>subir la imagen<br>de la playera (PNG)</div>
+    </div>
+
+    <!-- ╔══════════════════════════════════════════════╗
+         ║  CAMBIA src="camisa.png" A TU RUTA DE IMAGEN ║
+         ║  Debe estar en la misma carpeta que el HTML  ║
+         ╚══════════════════════════════════════════════╝ -->
+    <div class="jersey-img-wrap" id="jersey-img-wrap">
+      <img id="jersey-img" src="png1.png" alt="Playera">
+    </div>
+
+
+  </div>
+  <div class="price-bar">
+    <div>
+      <div class="price-boleto">Boleto</div>
+      <div class="price-amount"><span contenteditable>$100</span></div>
+      <div style="font-family:'Oswald',sans-serif;font-size:9px;letter-spacing:2px;color:var(--cream);opacity:.5;">MXN POR BOLETO</div>
+    </div>
+    <div style="text-align:right;">
+      <div class="price-note">Las tallas se encuentran reducidas<br><span class="price-limit">MÁX. 2 BOLETOS POR PERSONA</span></div>
+    </div>
+  </div>
+  <div class="info-strip">
+    <div class="info-cell">
+      <div class="info-lbl">📅 Fecha del sorteo</div>
+      <div class="info-val"><span contenteditable>Por anunciar</span></div>
+    </div>
+    <div class="info-divider"></div>
+    <div class="info-cell" style="padding-right:0">
+      <div class="info-lbl">🎽 Premio</div>
+      <div class="info-val"><span contenteditable>Playera Blanca Selección Mexicana</span></div>
+    </div>
+  </div>
+  <div class="steps-sec">
+    <div class="sec-title">¿Cómo participar?</div>
+    <div class="step-row"><div class="step-num">1</div><div class="step-txt">Elige tu número de la suerte (puedes elegir <strong>hasta 2 boletos</strong> por persona)</div></div>
+    <div class="step-row"><div class="step-num">2</div><div class="step-txt">Ingresa tu <strong>nombre y teléfono</strong> para apartar tu número</div></div>
+    <div class="step-row"><div class="step-num">3</div><div class="step-txt">Realiza tu <strong>pago</strong> y confirma con la organizadora</div></div>
+    <div class="step-row"><div class="step-num">4</div><div class="step-txt">¡<strong>Espera el sorteo</strong> y cruza los dedos! 🤞</div></div>
+  </div>
+  <div class="payment-sec">
+    <div class="sec-title">💳 Forma de Pago</div>
+    <div class="payment-content">Para realizar tu pago comunícate directamente con la <strong>organizadora</strong>.<br>Si tu forma de pago es por <strong>transferencia</strong>, ella te enviará un mensaje indicándote los <strong>requisitos a poner</strong> y el número de cuenta.</div>
+    <div class="payment-contact-box">
+      <p>📲 <strong>Comunícate aquí:</strong></p>
+      <p style="margin-top:6px">
+        💬 WhatsApp: <strong contenteditable>+52 921 111 3395</strong><br>
+        📸 Instagram: <strong contenteditable>@dafne_cami o @moonixzx</strong>
+      </p>
+      <p style="margin-top:8px;font-size:11px;opacity:.6;font-family:'Oswald',sans-serif;letter-spacing:1px;">
+        En caso de ser pago en efectivo se llegará a un acuerdo del punto de reunión / recuerda tomar captura de los boletos/
+      </p>
+    </div>
+  </div>
+  <div class="nums-sec">
+    <div class="nums-header">
+      <div class="nums-title">Elige tu Número</div>
+      <div class="nums-subtitle">Selecciona hasta 2 boletos · $100 c/u</div>
+    </div>
+    <div class="nums-grid" id="grid"></div>
+    <div class="nums-legend">
+      <div class="leg"><span class="leg-dot" style="background:transparent"></span>Disponible</div>
+      <div class="leg"><span class="leg-dot" style="background:rgba(192,57,43,.4);border-color:rgba(192,57,43,.5)"></span>Ocupado</div>
+    </div>
+  </div>
+  <div class="social-sec">
+    <div class="social-lbl">📣 Resultados del sorteo en:</div>
+    <div class="social-link">📸 Instagram: <strong contenteditable>@dafne_cami o @moonixzx</strong></div>
+    <div class="social-link">💬 WhatsApp: <strong contenteditable>+52 921 111 3395</strong></div>
+    <div style="margin-top:8px;font-family:'Oswald',sans-serif;font-size:10px;letter-spacing:1px;color:var(--cream);opacity:.4;">
+      <div style="margin-top:8px;font-family:'Oswald',sans-serif;font-size:10px;letter-spacing:1px;color:var(--cream);opacity:.4;">
+      El en vivo se realizará en Instagram y se subirán los ganadores en Instagram como en WhatsApp, se les avisara un día antes para que estén atento a la hora y el día del en vivo/
+    </div>
+    </div>
+  </div>
+  <!-- Footer: toca 5 veces rápido (móvil) para abrir admin -->
+  <div class="poster-footer" id="footer-trigger">
+    <span class="ftr-txt"><span contenteditable>Camisorg</span> · <span contenteditable>2026</span></span>
+    <span style="font-family:'Special Elite',serif;font-size:10px;color:var(--gold);opacity:.5;">Boleto Oficial ✦ Rifa Camisa Verde</span>
+  </div>
+</div>
+
+<!-- ══ MODAL: FORM ══ -->
+<div class="overlay" id="modal-form">
+  <div class="modal" style="max-width:440px;">
+    <div class="mhdr">
+      <h2>Apartar Boleto</h2>
+      <p id="m-subtitle">INGRESA TUS DATOS PARA PARTICIPAR</p>
+      <div id="m-nums-badges" style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap;"></div>
+    </div>
+    <div class="mbody">
+      <label class="flbl">¿Cuántos boletos quieres? (máx. 2)</label>
+      <div class="qty-row">
+        <button class="qty-btn" onclick="changeQty(-1)">−</button>
+        <div class="qty-display" id="qty-display">1</div>
+        <button class="qty-btn" onclick="changeQty(1)">＋</button>
+      </div>
+      <div id="second-pick-zone" style="display:none;margin-bottom:14px;">
+        <div style="font-family:'Oswald',sans-serif;font-size:10px;letter-spacing:2px;color:var(--gold);margin-bottom:8px;">👇 ELIGE TU SEGUNDO NÚMERO:</div>
+        <div id="mini-grid" style="display:grid;grid-template-columns:repeat(7,1fr);gap:5px;"></div>
+      </div>
+      <label class="flbl">Nombre completo *</label>
+      <input class="finp" id="f-name" type="text" placeholder="Tu nombre completo" maxlength="60" autocomplete="name">
+      <label class="flbl">Número de teléfono *</label>
+      <input class="finp" id="f-phone" type="tel" placeholder="10 dígitos" maxlength="15" autocomplete="tel">
+      <div class="err" id="f-err">⚠ Por favor llena todos los campos correctamente</div>
+      <button class="btn-main" id="btn-confirm" onclick="confirmParticipation()">✦ Confirmar Participación ✦</button>
+      <button class="btn-cancel" onclick="closeForm()">Cancelar · volver a elegir</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MODAL: TICKET ══ -->
+<div class="overlay" id="ticket-overlay">
+  <div class="modal" style="max-width:480px;">
+    <div class="ticket-wrap">
+      <div class="ticket" id="the-ticket">
+        <div class="ticket-top">
+          <div class="ticket-top-row">
+            <div>
+              <div class="ticket-org" id="t-org">RIFA OFICIAL</div>
+              <div style="font-family:'Oswald',sans-serif;font-size:8px;letter-spacing:2px;color:rgba(245,234,216,.4);margin-top:2px;">BOLETO OFICIAL DE PARTICIPACIÓN</div>
+            </div>
+            <div style="text-align:right">
+              <div style="font-family:'Oswald',sans-serif;font-size:9px;color:var(--gold);letter-spacing:2px;">FOLIO</div>
+              <div id="t-folio" style="font-family:'Bebas Neue',sans-serif;font-size:17px;color:var(--gold);letter-spacing:3px;">—</div>
+            </div>
+          </div>
+          <div class="ticket-label-num" style="margin-top:8px;">TU NÚMERO DE LA SUERTE</div>
+          <div class="ticket-num-big" id="t-num">–</div>
+        </div>
+        <div class="ticket-body">
+          <hr class="ticket-divider">
+          <div class="ticket-row">
+            <div class="ticket-field">
+              <div class="ticket-field-lbl">Nombre del participante</div>
+              <div class="ticket-field-val" id="t-name">—</div>
+            </div>
+          </div>
+          <div class="ticket-row" style="margin-top:10px">
+            <div class="ticket-field"><div class="ticket-field-lbl">Teléfono</div><div class="ticket-field-val" id="t-phone">—</div></div>
+            <div class="ticket-field"><div class="ticket-field-lbl">Fecha</div><div class="ticket-field-val" id="t-date">—</div></div>
+          </div>
+          <hr class="ticket-divider">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:4px">
+            <div style="font-family:'Special Elite',serif;font-size:10px;color:rgba(245,234,216,.6);" id="t-cost">Costo: <strong>$100 MXN</strong> · 1 boleto</div>
+            <div class="barcode" id="t-barcode"></div>
+          </div>
+        </div>
+      </div>
+      <div class="ss-prompt">
+        <div class="ss-icon">📸</div>
+        <div class="ss-txt">
+          <strong>¡TOMA UNA CAPTURA DE PANTALLA!</strong>
+          Guarda este boleto como comprobante. Si ganas deberás mostrarlo. ¡No lo pierdas!
+        </div>
+      </div>
+      <button class="btn-close-ticket" onclick="closeTicket()">✓ Ya tomé mi captura — Cerrar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     PANEL ADMIN (COMPLETAMENTE OCULTO)
+     ACCESO:
+       PC/laptop  → escribe "admin" en el teclado
+                    (sin estar en un campo de texto)
+       Móvil      → toca el pie de página 5 veces rápido
+══════════════════════════════════════════════ -->
+
+<!-- Pantalla de login -->
+<div id="admin-login-overlay">
+  <div class="admin-login-box">
+    <div class="admin-login-title">🔐 ADMIN</div>
+    <div class="admin-login-sub">Panel privado · Solo administrador</div>
+    <div class="admin-login-err" id="login-err">✕ Contraseña incorrecta</div>
+    <input class="admin-login-inp" id="admin-pass-input" type="password"
+           placeholder="••••••••"
+           onkeydown="if(event.key==='Enter') doAdminLogin()">
+    <button class="admin-login-btn" onclick="doAdminLogin()">ENTRAR</button>
+    <button class="admin-login-cancel" onclick="closeAdminLogin()">Cancelar</button>
+  </div>
+</div>
+
+<!-- Panel admin completo -->
+<div id="admin-panel">
+  <div class="adm-topbar">
+    <div>
+      <div class="adm-topbar-title">⚙️ Panel Admin</div>
+      <div class="adm-topbar-sub">Rifa Camisa Verde · Vista privada</div>
+    </div>
+    <button class="adm-close-btn" onclick="closeAdminPanel()">✕ Cerrar</button>
+  </div>
+  <div class="adm-body">
+    <!-- Tabs -->
+    <div class="adm-tabs">
+      <button class="adm-tab active" onclick="switchTab('participantes')">👥 Participantes</button>
+      <button class="adm-tab" onclick="switchTab('configuracion')">⚙️ Configuración</button>
+      <button class="adm-tab" onclick="switchTab('numeros')">🎟️ Números</button>
+    </div>
+
+    <!-- TAB: PARTICIPANTES -->
+    <div id="tab-participantes" class="adm-tab-content active">
+      <div class="adm-stats">
+        <div class="adm-stat"><div class="adm-stat-num" id="stat-tomados">0</div><div class="adm-stat-lbl">Números tomados</div></div>
+        <div class="adm-stat"><div class="adm-stat-num" id="stat-disponibles">21</div><div class="adm-stat-lbl">Disponibles</div></div>
+        <div class="adm-stat"><div class="adm-stat-num" id="stat-personas">0</div><div class="adm-stat-lbl">Personas</div></div>
+      </div>
+      <div class="adm-actions">
+        <button class="adm-action-btn" onclick="refreshData()">🔄 Actualizar</button>
+        <button class="adm-action-btn" onclick="exportCSV()">📥 Exportar CSV / Excel</button>
+      </div>
+      <div class="adm-table-wrap">
+        <table class="adm-table">
+          <thead><tr><th>#</th><th>Nombre</th><th>Teléfono</th><th>Fecha</th></tr></thead>
+          <tbody id="participants-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- TAB: CONFIGURACIÓN -->
+    <div id="tab-configuracion" class="adm-tab-content">
+      <div class="adm-section-title">📱 WhatsApp & Notificaciones</div>
+      <div class="adm-row">
+        <div class="adm-field">
+          <label class="adm-lbl">Tu WhatsApp (código país + número)</label>
+          <input class="adm-inp" id="cfg-wa" type="text" placeholder="5212221234567">
+        </div>
+        <div class="adm-field">
+          <label class="adm-lbl">Nombre de la rifa</label>
+          <input class="adm-inp" id="cfg-rifaname" type="text" placeholder="Rifa Camisa Verde 2025">
+        </div>
+      </div>
+      <div class="adm-row">
+        <div class="adm-field">
+          <label class="adm-lbl">ID Formspree (opcional · para email)</label>
+          <input class="adm-inp" id="cfg-formspree" type="text" placeholder="xwkgpqzr">
+        </div>
+      </div>
+
+      <div class="adm-section-title" style="margin-top:20px;">☁️ Base de Datos (Firebase — Gratis)</div>
+      <div class="firebase-hint">
+        <div class="firebase-hint-title">🔥 Setup en 3 pasos (solo una vez)</div>
+        <p>
+          <strong style="color:var(--gold);">1.</strong> Ve a <a href="https://console.firebase.google.com" target="_blank">console.firebase.google.com</a> → <em>Crear proyecto</em> (nombre cualquiera)<br>
+          <strong style="color:var(--gold);">2.</strong> En el menú: <em>Compilación → Realtime Database → Crear base de datos → Modo de prueba → Activar</em><br>
+          <strong style="color:var(--gold);">3.</strong> Copia la URL que aparece, se ve así:<br>
+          <code>https://mi-rifa-default-rtdb.firebaseio.com</code><br><br>
+          Pégala abajo. ¡No necesitas ninguna clave ni API key!
+        </p>
+      </div>
+      <div class="adm-row">
+        <div class="adm-field">
+          <label class="adm-lbl">URL Firebase Realtime Database</label>
+          <input class="adm-inp" id="cfg-firebase" type="text" placeholder="https://mi-rifa-default-rtdb.firebaseio.com">
+        </div>
+        <button class="adm-save-btn" style="align-self:flex-end;margin-bottom:0;" onclick="testFirebase()">TEST</button>
+      </div>
+      <div id="firebase-status" style="font-family:'Oswald',sans-serif;font-size:10px;letter-spacing:2px;margin-top:6px;display:none;"></div>
+
+      <div class="adm-section-title" style="margin-top:20px;">🔑 Contraseña Admin</div>
+      <div class="adm-row">
+        <div class="adm-field" style="max-width:280px;">
+          <label class="adm-lbl">Nueva contraseña (vacío = no cambia)</label>
+          <input class="adm-inp" id="cfg-newpass" type="password" placeholder="Nueva contraseña...">
+          <p class="pass-hint">La contraseña actual se guarda en tu navegador.<br>Contraseña por defecto: <strong style="color:rgba(232,184,75,.6)">admin123</strong></p>
+        </div>
+      </div>
+      <button class="adm-save-btn" onclick="saveConfig()">GUARDAR TODO ✓</button>
+      <div class="adm-ok" id="cfg-ok">✅ CONFIGURACIÓN GUARDADA</div>
+    </div>
+
+    <!-- TAB: NÚMEROS (marcar manualmente) -->
+    <div id="tab-numeros" class="adm-tab-content">
+      <div class="adm-section-title">Marcar / Desmarcar números manualmente</div>
+      <p style="font-family:'Oswald',sans-serif;font-size:10px;letter-spacing:1px;color:rgba(245,234,216,.4);margin-bottom:12px;">
+        Haz clic en un número para marcarlo como tomado o liberarlo. Útil si alguien pagó por WhatsApp directamente.
+      </p>
+      <div class="manual-grid" id="manual-grid"></div>
+      <div style="margin-top:16px;display:flex;gap:8px;flex-wrap:wrap;">
+        <button class="adm-action-btn" onclick="saveManualChanges()">💾 Guardar cambios</button>
+        <button class="adm-action-btn" style="color:#e74c3c;border-color:rgba(231,76,60,.4);" onclick="confirmReset()">🗑 Resetear todo</button>
+      </div>
+      <p style="font-family:'Oswald',sans-serif;font-size:9px;letter-spacing:1px;color:rgba(245,234,216,.3);margin-top:10px;">
+        Los cambios manuales no incluyen nombre/teléfono. Los números marcados aquí aparecen como "reservados" sin datos del participante.
+      </p>
+    </div>
+
+  </div><!-- /adm-body -->
+</div><!-- /admin-panel -->
+
+<script>
+// ════════════════════════════════════════
+//  CONFIG
+// ════════════════════════════════════════
+const TOTAL = 21;
+let taken = {};      // { "5": {name, phone, date}, ... }
+let selNums = [];
+let currentQty = 1;
+let jerseyScale = 1, jerseyX = 0, jerseyY = 0;
+let dragging = false, dragStartX, dragStartY, dragOrigX, dragOrigY;
+let adminOpen = false;
+let manualSnapshot = {};  // copia para edición manual en admin
+
+// ════════════════════════════════════════
+//  ACCESO SECRETO AL ADMIN
+//  PC:    escribe "admin" (sin estar en un input)
+//  Móvil: toca el footer 5 veces rápido
+// ════════════════════════════════════════
+let secretBuffer = '';
+document.addEventListener('keydown', e => {
+  const tag = document.activeElement ? document.activeElement.tagName : '';
+  if(tag === 'INPUT' || tag === 'TEXTAREA' || document.activeElement.isContentEditable) return;
+  secretBuffer += e.key.toLowerCase();
+  secretBuffer = secretBuffer.slice(-5);
+  if(secretBuffer === 'admin'){
+    secretBuffer = '';
+    showAdminLogin();
+  }
+});
+
+let footerTaps = 0, footerTimer;
+document.getElementById('footer-trigger').addEventListener('click', () => {
+  footerTaps++;
+  clearTimeout(footerTimer);
+  footerTimer = setTimeout(() => { footerTaps = 0; }, 1800);
+  if(footerTaps >= 5){
+    footerTaps = 0;
+    showAdminLogin();
+  }
+});
+
+// ════════════════════════════════════════
+//  LOGIN ADMIN
+// ════════════════════════════════════════
+function showAdminLogin(){
+  if(adminOpen) return;
+  document.getElementById('admin-pass-input').value = '';
+  document.getElementById('login-err').style.display = 'none';
+  document.getElementById('admin-login-overlay').classList.add('show');
+  setTimeout(() => document.getElementById('admin-pass-input').focus(), 150);
+}
+
+function closeAdminLogin(){
+  document.getElementById('admin-login-overlay').classList.remove('show');
+}
+
+function doAdminLogin(){
+  const input  = document.getElementById('admin-pass-input').value;
+  const stored = localStorage.getItem('rifa_verde_adminpass') || 'admin123';
+  if(input === stored){
+    document.getElementById('admin-login-overlay').classList.remove('show');
+    openAdminPanel();
+  } else {
+    const err = document.getElementById('login-err');
+    err.style.display = 'block';
+    document.getElementById('admin-pass-input').value = '';
+    document.getElementById('admin-pass-input').focus();
+    setTimeout(() => err.style.display = 'none', 2500);
+  }
+}
+
+// ════════════════════════════════════════
+//  PANEL ADMIN
+// ════════════════════════════════════════
+function openAdminPanel(){
+  adminOpen = true;
+  document.getElementById('admin-panel').classList.add('show');
+  document.body.style.overflow = 'hidden';
+  fillConfigFields();
+  refreshData();
+  buildManualGrid();
+  switchTab('participantes');
+}
+
+function closeAdminPanel(){
+  adminOpen = false;
+  document.getElementById('admin-panel').classList.remove('show');
+  document.body.style.overflow = '';
+}
+
+function switchTab(name){
+  document.querySelectorAll('.adm-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.adm-tab-content').forEach(c => c.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  const tabs = document.querySelectorAll('.adm-tab');
+  const idx = ['participantes','configuracion','numeros'].indexOf(name);
+  if(tabs[idx]) tabs[idx].classList.add('active');
+}
+
+// ════════════════════════════════════════
+//  FIREBASE — BASE DE DATOS
+//  Solo necesitas UNA URL de Firebase
+// ════════════════════════════════════════
+function getFirebaseURL(){
+  const raw = localStorage.getItem('rifa_verde_firebase') || '';
+  return raw.replace(/\/+$/, ''); // quitar slash final
+}
+
+async function fbRead(){
+  const url = getFirebaseURL();
+  if(!url) return null;
+  try{
+    const res = await fetch(`${url}/rifa.json`);
+    if(!res.ok) return null;
+    return await res.json(); // puede ser null si vacío
+  }catch(e){ return null; }
+}
+
+async function fbWrite(data){
+  const url = getFirebaseURL();
+  if(!url) return false;
+  try{
+    const res = await fetch(`${url}/rifa.json`, {
+      method: 'PUT',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify(data)
+    });
+    return res.ok;
+  }catch(e){ return false; }
+}
+
+async function fbPatchTaken(updates){
+  // Escribe solo los campos nuevos (más eficiente)
+  const url = getFirebaseURL();
+  if(!url) return false;
+  try{
+    const res = await fetch(`${url}/rifa/taken.json`, {
+      method: 'PATCH',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify(updates)
+    });
+    return res.ok;
+  }catch(e){ return false; }
+}
+
+async function testFirebase(){
+  const statusEl = document.getElementById('firebase-status');
+  statusEl.style.display = 'block';
+  statusEl.style.color = 'rgba(245,234,216,.5)';
+  statusEl.textContent = '⏳ Probando conexión...';
+  const url = document.getElementById('cfg-firebase').value.trim();
+  if(!url){ statusEl.textContent = '⚠ Ingresa la URL primero'; statusEl.style.color = '#e74c3c'; return; }
+  try{
+    const res = await fetch(`${url.replace(/\/+$/,'')}/rifa.json`);
+    if(res.ok){
+      statusEl.textContent = '✅ ¡Conexión exitosa! Firebase está funcionando.';
+      statusEl.style.color = '#2ecc71';
+    } else {
+      statusEl.textContent = '✕ Error: Verifica que la URL sea correcta y que el modo de prueba esté activo.';
+      statusEl.style.color = '#e74c3c';
+    }
+  }catch(e){
+    statusEl.textContent = '✕ No se pudo conectar. Revisa la URL de Firebase.';
+    statusEl.style.color = '#e74c3c';
+  }
+}
+
+// ════════════════════════════════════════
+//  CARGA INICIAL
+// ════════════════════════════════════════
+async function init(){
+  await loadTaken();
+  buildGrid();
+  startPolling();
+  initJerseyImage();
+}
+
+async function loadTaken(){
+  const remote = await fbRead();
+  if(remote && remote.taken){
+    taken = remote.taken;
+    try{ localStorage.setItem('rifa_verde_taken', JSON.stringify(taken)); }catch(e){}
+  } else {
+    // Fallback localStorage (sin Firebase configurado)
+    try{ taken = JSON.parse(localStorage.getItem('rifa_verde_taken') || '{}'); }catch(e){}
+  }
+}
+
+function startPolling(){
+  // Refresca números cada 20 segundos
+  setInterval(async () => {
+    const remote = await fbRead();
+    if(remote && remote.taken){
+      taken = remote.taken;
+      try{ localStorage.setItem('rifa_verde_taken', JSON.stringify(taken)); }catch(e){}
+      buildGrid();
+      if(adminOpen) renderParticipants();
+    }
+  }, 20000);
+}
+
+function getCfg(){
+  return{
+    wa:   localStorage.getItem('rifa_verde_wa')    || '',
+    name: localStorage.getItem('rifa_verde_name')  || 'Rifa Camisa Verde',
+    fs:   localStorage.getItem('rifa_verde_fs')    || ''
+  };
+}
+
+// ════════════════════════════════════════
+//  GRILLA PÚBLICA
+// ════════════════════════════════════════
+function buildGrid(){
+  const grid = document.getElementById('grid');
+  grid.innerHTML = '';
+  for(let i = 1; i <= TOTAL; i++){
+    const b = document.createElement('button');
+    b.id = 'nb-' + i;
+    b.textContent = i;
+    if(taken[i]){
+      b.className = 'nb taken';
+    } else {
+      b.className = 'nb';
+      b.onclick = () => mainGridClick(i);
+    }
+    grid.appendChild(b);
+  }
+}
+
+function mainGridClick(num){
+  if(document.getElementById('modal-form').classList.contains('on')) return;
+  if(taken[num]){ buildGrid(); return; }
+  selNums = [num]; currentQty = 1;
+  openForm();
+}
+
+// ════════════════════════════════════════
+//  MINI GRILLA (2° número)
+// ════════════════════════════════════════
+function buildMiniGrid(){
+  const mg = document.getElementById('mini-grid');
+  mg.innerHTML = '';
+  for(let i = 1; i <= TOTAL; i++){
+    const b = document.createElement('button');
+    b.id = 'mnb-' + i;
+    b.textContent = i;
+    b.style.cssText = 'aspect-ratio:1;border:2px solid rgba(232,184,75,.4);background:rgba(0,0,0,.35);font-family:"Bebas Neue",sans-serif;font-size:18px;color:var(--cream);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;';
+    if(taken[i] || selNums.includes(i)){
+      b.style.background = 'rgba(192,57,43,.35)';
+      b.style.color = 'rgba(245,234,216,.25)';
+      b.style.cursor = 'not-allowed';
+      b.style.borderColor = 'rgba(192,57,43,.4)';
+    } else {
+      b.onclick = () => pickSecondNum(i);
+      b.onmouseover = () => { b.style.background='var(--gold)'; b.style.color='var(--dark)'; };
+      b.onmouseout  = () => { if(!selNums.includes(i)){ b.style.background='rgba(0,0,0,.35)'; b.style.color='var(--cream)'; } };
+    }
+    mg.appendChild(b);
+  }
+}
+
+function pickSecondNum(num){
+  if(selNums.length > 1) selNums = [selNums[0]];
+  selNums.push(num);
+  updateBadges(); buildMiniGrid();
+  const btn = document.getElementById('mnb-' + num);
+  if(btn){ btn.style.background='var(--gold)'; btn.style.color='var(--dark)'; btn.style.borderColor='var(--gold)'; }
+  document.getElementById('f-err').style.display = 'none';
+}
+
+// ════════════════════════════════════════
+//  FORMULARIO
+// ════════════════════════════════════════
+function openForm(){
+  currentQty = 1;
+  document.getElementById('qty-display').textContent = '1';
+  document.getElementById('second-pick-zone').style.display = 'none';
+  document.getElementById('f-name').value = '';
+  document.getElementById('f-phone').value = '';
+  document.getElementById('f-err').style.display = 'none';
+  document.getElementById('btn-confirm').classList.remove('loading');
+  updateBadges();
+  document.getElementById('modal-form').classList.add('on');
+  setTimeout(() => document.getElementById('f-name').focus(), 320);
+}
+
+function updateBadges(){
+  const wrap = document.getElementById('m-nums-badges');
+  wrap.innerHTML = '';
+  selNums.forEach(n => {
+    const d = document.createElement('div');
+    d.className = 'num-badge'; d.textContent = '# ' + n;
+    wrap.appendChild(d);
+  });
+  document.getElementById('m-subtitle').textContent =
+    selNums.length === 2 ? '2 BOLETOS SELECCIONADOS ✓' : 'INGRESA TUS DATOS PARA PARTICIPAR';
+}
+
+function closeForm(){
+  selNums = []; currentQty = 1;
+  document.getElementById('modal-form').classList.remove('on');
+  buildGrid();
+}
+
+function changeQty(delta){
+  currentQty = Math.max(1, Math.min(2, currentQty + delta));
+  document.getElementById('qty-display').textContent = currentQty;
+  if(currentQty === 2){
+    if(selNums.length > 1) selNums = [selNums[0]];
+    document.getElementById('second-pick-zone').style.display = 'block';
+    buildMiniGrid();
+  } else {
+    if(selNums.length > 1) selNums = [selNums[0]];
+    document.getElementById('second-pick-zone').style.display = 'none';
+  }
+  updateBadges();
+}
+
+async function confirmParticipation(){
+  const name  = document.getElementById('f-name').value.trim();
+  const phone = document.getElementById('f-phone').value.trim();
+  const errEl = document.getElementById('f-err');
+  if(!name || phone.length < 7){
+    errEl.textContent = '⚠ Por favor llena todos los campos correctamente';
+    errEl.style.display = 'block'; return;
+  }
+  if(currentQty === 2 && selNums.length < 2){
+    errEl.textContent = '⚠ Elige tu segundo número arriba 👆';
+    errEl.style.display = 'block'; return;
+  }
+  // Verificar disponibilidad en tiempo real
+  if(selNums.some(n => taken[n])){
+    errEl.textContent = '⚠ Ese número ya fue tomado. Elige otro.';
+    errEl.style.display = 'block';
+    await loadTaken(); buildGrid(); closeForm(); return;
+  }
+  const btn = document.getElementById('btn-confirm');
+  btn.classList.add('loading');
+  const entry = {
+    name, phone,
+    date: new Date().toLocaleDateString('es-MX', {year:'numeric',month:'2-digit',day:'2-digit'})
+  };
+  selNums.forEach(n => { taken[n] = entry; });
+  // Guardar en Firebase
+  const updates = {};
+  selNums.forEach(n => { updates[n] = entry; });
+  await fbPatchTaken(updates);
+  try{ localStorage.setItem('rifa_verde_taken', JSON.stringify(taken)); }catch(e){}
+  const cfg = getCfg();
+  const numsStr = selNums.join(' y ');
+  const boletos = selNums.length === 2 ? '2 boletos' : '1 boleto';
+  await Promise.allSettled([
+    notifyFormspree(cfg, name, phone, numsStr, boletos),
+    notifyWA(cfg, name, phone, numsStr, boletos)
+  ]);
+  document.getElementById('modal-form').classList.remove('on');
+  showTicket([...selNums], name, phone, boletos);
+  selNums = []; currentQty = 1;
+  buildGrid(); launchConfetti();
+}
+
+// ════════════════════════════════════════
+//  NOTIFICACIONES
+// ════════════════════════════════════════
+async function notifyFormspree(cfg, name, phone, nums, boletos){
+  if(!cfg.fs) return;
+  try{
+    await fetch(`https://formspree.io/f/${cfg.fs}`,{
+      method:'POST',
+      headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body: JSON.stringify({
+        _subject:`🎟️ Nuevo participante · ${cfg.name} — Número(s) ${nums}`,
+        nombre:name, telefono:phone, numeros_elegidos:nums, boletos_comprados:boletos,
+        rifa:cfg.name, fecha:new Date().toLocaleDateString('es-MX',{weekday:'long',year:'numeric',month:'long',day:'numeric'})
+      })
+    });
+  }catch(e){}
+}
+
+function notifyWA(cfg, name, phone, nums, boletos){
+  if(!cfg.wa) return Promise.resolve();
+  const msg =
+`🎟️ *NUEVO PARTICIPANTE*
+*${cfg.name}*
+
+📌 Número(s): *${nums}*
+🎫 Boletos: *${boletos}*
+👤 Nombre: *${name}*
+📞 Teléfono: *${phone}*
+
+📅 ${new Date().toLocaleDateString('es-MX',{weekday:'long',year:'numeric',month:'long',day:'numeric'})}`;
+  setTimeout(() => window.open(`https://wa.me/${cfg.wa}?text=${encodeURIComponent(msg)}`,'_blank'), 700);
+  return Promise.resolve();
+}
+
+// ════════════════════════════════════════
+//  TICKET
+// ════════════════════════════════════════
+function showTicket(nums, name, phone, boletos){
+  const folio = 'B'+String(nums[0]).padStart(2,'0')+'-'+Date.now().toString(36).toUpperCase().slice(-4);
+  document.getElementById('t-num').textContent   = nums.join(' & ');
+  document.getElementById('t-name').textContent  = name;
+  document.getElementById('t-phone').textContent = phone;
+  document.getElementById('t-date').textContent  = new Date().toLocaleDateString('es-MX');
+  document.getElementById('t-folio').textContent = folio;
+  document.getElementById('t-org').textContent   = getCfg().name || 'Rifa Camisa Verde';
+  document.getElementById('t-cost').innerHTML    = 'Costo: <strong>$'+(nums.length*100)+' MXN</strong> · '+boletos;
+  const bc = document.getElementById('t-barcode');
+  bc.innerHTML = '';
+  [18,10,14,8,20,12,16,10,18,8,14,20,10,16,12,18].forEach(h=>{
+    const s = document.createElement('span'); s.style.height = h+'px'; bc.appendChild(s);
+  });
+  document.getElementById('ticket-overlay').classList.add('on');
+}
+function closeTicket(){ document.getElementById('ticket-overlay').classList.remove('on'); }
+
+// ════════════════════════════════════════
+//  ADMIN — PARTICIPANTES
+// ════════════════════════════════════════
+async function refreshData(){
+  await loadTaken();
+  buildGrid();
+  renderParticipants();
+  buildManualGrid();
+}
+
+function renderParticipants(){
+  const tbody = document.getElementById('participants-tbody');
+  const entries = Object.entries(taken).sort((a,b) => parseInt(a[0]) - parseInt(b[0]));
+  const tomados = entries.length;
+  const personas = new Set(entries.map(([,d]) => d && d.phone ? d.phone : '')).size;
+  document.getElementById('stat-tomados').textContent = tomados;
+  document.getElementById('stat-disponibles').textContent = TOTAL - tomados;
+  document.getElementById('stat-personas').textContent = personas;
+  tbody.innerHTML = '';
+  if(entries.length === 0){
+    tbody.innerHTML = '<tr><td colspan="4" class="adm-empty">Aún no hay participantes</td></tr>';
+    return;
+  }
+  entries.forEach(([num, data]) => {
+    const tr = document.createElement('tr');
+    const d = data || {};
+    tr.innerHTML =
+      `<td><span class="num-chip">${num}</span></td>`+
+      `<td>${d.name || '<span style="opacity:.3">—</span>'}</td>`+
+      `<td style="font-size:12px;letter-spacing:.5px;">${d.phone || '<span style="opacity:.3">—</span>'}</td>`+
+      `<td style="font-size:10px;opacity:.5;">${d.date || '—'}</td>`;
+    tbody.appendChild(tr);
+  });
+}
+
+function exportCSV(){
+  const entries = Object.entries(taken).sort((a,b) => parseInt(a[0]) - parseInt(b[0]));
+  const rows = [['Número','Nombre','Teléfono','Fecha']];
+  entries.forEach(([num, data]) => {
+    const d = data || {};
+    rows.push([num, d.name||'', d.phone||'', d.date||'']);
+  });
+  const csv = rows.map(r => r.map(c => `"${String(c).replace(/"/g,'""')}"`).join(',')).join('\n');
+  const blob = new Blob(['\uFEFF'+csv], {type:'text/csv;charset=utf-8;'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'rifa-participantes.csv';
+  document.body.appendChild(a); a.click();
+  document.body.removeChild(a); URL.revokeObjectURL(url);
+}
+
+// ════════════════════════════════════════
+//  ADMIN — CONFIGURACIÓN
+// ════════════════════════════════════════
+function fillConfigFields(){
+  const set = (id, key) => {
+    const v = localStorage.getItem(key);
+    if(v) document.getElementById(id).value = v;
+  };
+  set('cfg-wa',       'rifa_verde_wa');
+  set('cfg-rifaname', 'rifa_verde_name');
+  set('cfg-formspree','rifa_verde_fs');
+  set('cfg-firebase', 'rifa_verde_firebase');
+}
+
+function saveConfig(){
+  const save = (id, key) => {
+    const v = document.getElementById(id).value.trim();
+    if(v) localStorage.setItem(key, v);
+  };
+  save('cfg-wa',       'rifa_verde_wa');
+  save('cfg-rifaname', 'rifa_verde_name');
+  save('cfg-formspree','rifa_verde_fs');
+  save('cfg-firebase', 'rifa_verde_firebase');
+  const np = document.getElementById('cfg-newpass').value.trim();
+  if(np) localStorage.setItem('rifa_verde_adminpass', np);
+  const ok = document.getElementById('cfg-ok');
+  ok.style.display = 'block';
+  setTimeout(() => ok.style.display = 'none', 3000);
+}
+
+// ════════════════════════════════════════
+//  ADMIN — NÚMEROS MANUALES
+// ════════════════════════════════════════
+function buildManualGrid(){
+  manualSnapshot = JSON.parse(JSON.stringify(taken));
+  const mg = document.getElementById('manual-grid');
+  mg.innerHTML = '';
+  for(let i = 1; i <= TOTAL; i++){
+    const b = document.createElement('div');
+    b.id = 'mnb-a-' + i;
+    b.className = 'mnb' + (manualSnapshot[i] ? ' mtaken' : '');
+    b.textContent = i;
+    b.onclick = () => toggleManualNum(i);
+    mg.appendChild(b);
+  }
+}
+
+function toggleManualNum(num){
+  const btn = document.getElementById('mnb-a-' + num);
+  if(manualSnapshot[num]){
+    delete manualSnapshot[num];
+    btn.className = 'mnb';
+  } else {
+    manualSnapshot[num] = {name:'(reservado)', phone:'—', date: new Date().toLocaleDateString('es-MX')};
+    btn.className = 'mnb mtaken';
+  }
+}
+
+async function saveManualChanges(){
+  taken = JSON.parse(JSON.stringify(manualSnapshot));
+  await fbWrite({taken});
+  try{ localStorage.setItem('rifa_verde_taken', JSON.stringify(taken)); }catch(e){}
+  buildGrid();
+  renderParticipants();
+  alert('✅ Cambios guardados');
+}
+
+function confirmReset(){
+  if(confirm('¿Resetear TODOS los números? Esta acción no se puede deshacer.')){
+    taken = {};
+    fbWrite({taken:{}});
+    try{ localStorage.removeItem('rifa_verde_taken'); }catch(e){}
+    buildGrid();
+    buildManualGrid();
+    renderParticipants();
+  }
+}
+
+// ════════════════════════════════════════
+//  IMAGEN PLAYERA
+// ════════════════════════════════════════
+function initJerseyImage(){
+  const img = document.getElementById('jersey-img');
+  const wrap = document.getElementById('jersey-img-wrap');
+  const placeholder = document.getElementById('jersey-placeholder');
+  const controls = document.getElementById('jersey-controls');
+  if(!img.src || img.src === window.location.href) return;
+  img.onload = () => {
+    placeholder.style.display = 'none';
+    wrap.style.display = 'inline-block';
+    controls.style.display = 'flex';
+  };
+  img.onerror = () => {
+    wrap.style.display = 'none';
+    placeholder.style.display = 'flex';
+  };
+  const s = img.src; img.src = ''; img.src = s;
+}
+
+function loadJerseyImage(e){
+  const file = e.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = ev => {
+    document.getElementById('jersey-img').src = ev.target.result;
+    document.getElementById('jersey-placeholder').style.display = 'none';
+    const wrap = document.getElementById('jersey-img-wrap');
+    wrap.style.display = 'inline-block';
+    wrap.style.transform = 'translate(0px,0px) scale(1)';
+    jerseyX=0; jerseyY=0; jerseyScale=1;
+    document.getElementById('jersey-controls').style.display = 'flex';
+  };
+  reader.readAsDataURL(file);
+}
+function changeJerseyImage(){ document.getElementById('jersey-input').click(); }
+function removeJerseyImage(){
+  document.getElementById('jersey-img-wrap').style.display = 'none';
+  document.getElementById('jersey-placeholder').style.display = 'flex';
+  document.getElementById('jersey-controls').style.display = 'none';
+  document.getElementById('jersey-img').src = '';
+}
+function scaleJersey(f){
+  jerseyScale = Math.max(0.3, Math.min(3, jerseyScale * f));
+  updateJerseyTransform();
+}
+function updateJerseyTransform(){
+  document.getElementById('jersey-img-wrap').style.transform =
+    `translate(${jerseyX}px,${jerseyY}px) scale(${jerseyScale})`;
+}
+function startDrag(e){
+  dragging=true; dragStartX=e.clientX; dragStartY=e.clientY; dragOrigX=jerseyX; dragOrigY=jerseyY;
+  window.addEventListener('mousemove',onDrag); window.addEventListener('mouseup',endDrag);
+}
+function onDrag(e){ if(!dragging)return; jerseyX=dragOrigX+(e.clientX-dragStartX); jerseyY=dragOrigY+(e.clientY-dragStartY); updateJerseyTransform(); }
+function endDrag(){ dragging=false; window.removeEventListener('mousemove',onDrag); window.removeEventListener('mouseup',endDrag); }
+function startDragTouch(e){ const t=e.touches[0]; dragging=true; dragStartX=t.clientX; dragStartY=t.clientY; dragOrigX=jerseyX; dragOrigY=jerseyY; }
+document.addEventListener('touchmove',e=>{ if(!dragging)return; const t=e.touches[0]; jerseyX=dragOrigX+(t.clientX-dragStartX); jerseyY=dragOrigY+(t.clientY-dragStartY); updateJerseyTransform(); },{passive:true});
+document.addEventListener('touchend',()=>{ dragging=false; });
+
+// ════════════════════════════════════════
+//  CONFETTI
+// ════════════════════════════════════════
+function launchConfetti(){
+  const cv=document.getElementById('confetti-canvas');
+  const ctx=cv.getContext('2d');
+  cv.width=window.innerWidth; cv.height=window.innerHeight;
+  const colors=['#e8b84b','#7a2d1e','#f5d070','#f5ead8','#ffffff','#c0392b'];
+  const P=[];
+  for(let i=0;i<220;i++) P.push({x:Math.random()*cv.width,y:-20-Math.random()*250,w:5+Math.random()*10,h:4+Math.random()*7,r:3+Math.random()*5,c:colors[Math.floor(Math.random()*colors.length)],vx:(Math.random()-.5)*5,vy:2+Math.random()*4,a:Math.random()*360,sp:(Math.random()-.5)*10,al:1,sh:['rect','circle','tri'][Math.floor(Math.random()*3)]});
+  let fr=0;
+  (function draw(){
+    ctx.clearRect(0,0,cv.width,cv.height); fr++;
+    let alive=0;
+    P.forEach(p=>{ p.x+=p.vx; p.y+=p.vy; p.a+=p.sp; p.vy+=.08; if(p.y>cv.height-50)p.al-=.022; if(p.al<=0)return; alive++; ctx.save(); ctx.globalAlpha=p.al; ctx.fillStyle=p.c; ctx.translate(p.x,p.y); ctx.rotate(p.a*Math.PI/180); if(p.sh==='rect')ctx.fillRect(-p.w/2,-p.h/2,p.w,p.h); else if(p.sh==='circle'){ctx.beginPath();ctx.arc(0,0,p.r,0,Math.PI*2);ctx.fill();}else{ctx.beginPath();ctx.moveTo(0,-p.r);ctx.lineTo(p.r,p.r);ctx.lineTo(-p.r,p.r);ctx.closePath();ctx.fill();} ctx.restore(); });
+    if(alive>0&&fr<360)requestAnimationFrame(draw); else ctx.clearRect(0,0,cv.width,cv.height);
+  })();
+}
+
+// ════════════════════════════════════════
+//  ARRANQUE
+// ════════════════════════════════════════
+init();
+</script>
+</body>
+</html>
