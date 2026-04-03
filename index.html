@@ -858,7 +858,11 @@ function startRealtimeSync(){
 //  CARGA INICIAL
 // ════════════════════════════════════════
 function init(){
-  startRealtimeSync(); // SSE carga los datos y llama buildGrid() solo
+  // Dibuja la grilla inmediatamente (con localStorage o vacía)
+  try{ taken = JSON.parse(localStorage.getItem('rifa_verde_taken') || '{}'); }catch(_){}
+  buildGrid();
+  // SSE se conecta y actualiza con los datos reales de Firebase
+  startRealtimeSync();
   initJerseyImage();
 }
 
