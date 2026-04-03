@@ -751,29 +751,16 @@ function switchTab(name){
 }
 
 // ════════════════════════════════════════
-//  FIREBASE — BASE DE DATOS
-//  Solo necesitas UNA URL de Firebase
+//  FIREBASE — URL FIJA (todos los dispositivos)
 // ════════════════════════════════════════
-function getFirebaseURL(){
-  const raw = localStorage.getItem('rifa_verde_firebase') || '';
-  return raw.replace(/\/+$/, ''); // quitar slash final
-}
+const FIREBASE_URL = 'https://rifacamisablanca-default-rtdb.firebaseio.com';
 
-async function fbRead(){
-  const url = getFirebaseURL();
-  if(!url) return null;
-  try{
-    const res = await fetch(`${url}/rifa.json`);
-    if(!res.ok) return null;
-    return await res.json(); // puede ser null si vacío
-  }catch(e){ return null; }
-}
+function getFirebaseURL(){ return FIREBASE_URL; }
 
+// Escribe objeto completo (admin reset/manual)
 async function fbWrite(data){
-  const url = getFirebaseURL();
-  if(!url) return false;
   try{
-    const res = await fetch(`${url}/rifa.json`, {
+    const res = await fetch(`${FIREBASE_URL}/rifa.json`, {
       method: 'PUT',
       headers: {'Content-Type':'application/json'},
       body: JSON.stringify(data)
@@ -782,12 +769,10 @@ async function fbWrite(data){
   }catch(e){ return false; }
 }
 
+// Escribe solo los números nuevos sin borrar el resto
 async function fbPatchTaken(updates){
-  // Escribe solo los campos nuevos (más eficiente)
-  const url = getFirebaseURL();
-  if(!url) return false;
   try{
-    const res = await fetch(`${url}/rifa/taken.json`, {
+    const res = await fetch(`${FIREBASE_URL}/rifa/taken.json`, {
       method: 'PATCH',
       headers: {'Content-Type':'application/json'},
       body: JSON.stringify(updates)
@@ -796,60 +781,96 @@ async function fbPatchTaken(updates){
   }catch(e){ return false; }
 }
 
+// Lectura directa única (botón Actualizar del admin)
+async function fbReadOnce(){
+  try{
+    const res = await fetch(`${FIREBASE_URL}/rifa.json`);
+    if(!res.ok) return null;
+    return await res.json();
+  }catch(e){ return null; }
+}
+
 async function testFirebase(){
   const statusEl = document.getElementById('firebase-status');
   statusEl.style.display = 'block';
   statusEl.style.color = 'rgba(245,234,216,.5)';
   statusEl.textContent = '⏳ Probando conexión...';
-  const url = document.getElementById('cfg-firebase').value.trim();
-  if(!url){ statusEl.textContent = '⚠ Ingresa la URL primero'; statusEl.style.color = '#e74c3c'; return; }
   try{
-    const res = await fetch(`${url.replace(/\/+$/,'')}/rifa.json`);
+    const res = await fetch(`${FIREBASE_URL}/rifa.json`);
     if(res.ok){
-      statusEl.textContent = '✅ ¡Conexión exitosa! Firebase está funcionando.';
+      statusEl.textContent = '✅ ¡Conexión exitosa! Firebase funcionando.';
       statusEl.style.color = '#2ecc71';
     } else {
-      statusEl.textContent = '✕ Error: Verifica que la URL sea correcta y que el modo de prueba esté activo.';
+      statusEl.textContent = '✕ Error al conectar. Revisa las reglas de Firebase.';
       statusEl.style.color = '#e74c3c';
     }
   }catch(e){
-    statusEl.textContent = '✕ No se pudo conectar. Revisa la URL de Firebase.';
+    statusEl.textContent = '✕ No se pudo conectar.';
     statusEl.style.color = '#e74c3c';
   }
 }
 
 // ════════════════════════════════════════
+//  TIEMPO REAL — Firebase SSE
+//  Conexión persistente: cualquier cambio
+//  llega a TODOS los dispositivos en <1 seg
+// ════════════════════════════════════════
+let sseSource = null;
+
+function startRealtimeSync(){
+  if(sseSource){ sseSource.close(); sseSource = null; }
+
+  sseSource = new EventSource(`${FIREBASE_URL}/rifa/taken.json`);
+
+  // 'put' = datos completos al conectar, o reemplazo total
+  sseSource.addEventListener('put', e => {
+    try{
+      const payload = JSON.parse(e.data);
+      if(payload.path === '/'){
+        taken = payload.data || {};
+      } else {
+        const key = payload.path.replace(/^\//, '');
+        if(payload.data === null) delete taken[key];
+        else taken[key] = payload.data;
+      }
+      try{ localStorage.setItem('rifa_verde_taken', JSON.stringify(taken)); }catch(_){}
+      buildGrid();
+      if(adminOpen){ renderParticipants(); buildManualGrid(); }
+    }catch(_){}
+  });
+
+  // 'patch' = actualización parcial
+  sseSource.addEventListener('patch', e => {
+    try{
+      const payload = JSON.parse(e.data);
+      Object.entries(payload.data || {}).forEach(([k,v]) => {
+        if(v === null) delete taken[k]; else taken[k] = v;
+      });
+      try{ localStorage.setItem('rifa_verde_taken', JSON.stringify(taken)); }catch(_){}
+      buildGrid();
+      if(adminOpen){ renderParticipants(); buildManualGrid(); }
+    }catch(_){}
+  });
+  // Si se cae internet, EventSource reconecta solo
+}
+
+// ════════════════════════════════════════
 //  CARGA INICIAL
 // ════════════════════════════════════════
-async function init(){
-  await loadTaken();
-  buildGrid();
-  startPolling();
+function init(){
+  startRealtimeSync(); // SSE carga los datos y llama buildGrid() solo
   initJerseyImage();
 }
 
+// Para el botón Actualizar del admin
 async function loadTaken(){
-  const remote = await fbRead();
+  const remote = await fbReadOnce();
   if(remote && remote.taken){
     taken = remote.taken;
-    try{ localStorage.setItem('rifa_verde_taken', JSON.stringify(taken)); }catch(e){}
+    try{ localStorage.setItem('rifa_verde_taken', JSON.stringify(taken)); }catch(_){}
   } else {
-    // Fallback localStorage (sin Firebase configurado)
-    try{ taken = JSON.parse(localStorage.getItem('rifa_verde_taken') || '{}'); }catch(e){}
+    try{ taken = JSON.parse(localStorage.getItem('rifa_verde_taken') || '{}'); }catch(_){}
   }
-}
-
-function startPolling(){
-  // Refresca números cada 20 segundos
-  setInterval(async () => {
-    const remote = await fbRead();
-    if(remote && remote.taken){
-      taken = remote.taken;
-      try{ localStorage.setItem('rifa_verde_taken', JSON.stringify(taken)); }catch(e){}
-      buildGrid();
-      if(adminOpen) renderParticipants();
-    }
-  }, 20000);
 }
 
 function getCfg(){
